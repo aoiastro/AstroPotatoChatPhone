@@ -21,11 +21,12 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.aoiastro.apcp
+        INFOPLIST_FILE: App/Info.plist
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIUserInterfaceStyle: Light
         SWIFT_ENABLE_CXX_INTEROP: YES
-        OTHER_SWIFT_FLAGS: '$(inherited) -Xfrontend -enable-experimental-cxx-interop'
+        OTHER_SWIFT_FLAGS: '$(inherited) -Xfrontend -cxx-interoperability-mode=default'
         CLANG_CXX_LANGUAGE_STANDARD: gnu++20
         CLANG_CXX_LIBRARY: libc++
     dependencies:
