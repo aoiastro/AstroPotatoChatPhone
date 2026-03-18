@@ -24,6 +24,10 @@ targets:
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIUserInterfaceStyle: Light
+        SWIFT_ENABLE_CXX_INTEROP: YES
+        OTHER_SWIFT_FLAGS: '$(inherited) -Xfrontend -enable-experimental-cxx-interop'
+        CLANG_CXX_LANGUAGE_STANDARD: gnu++20
+        CLANG_CXX_LIBRARY: libc++
     dependencies:
       - package: LocalLLMClient
         product: LocalLLMClient
