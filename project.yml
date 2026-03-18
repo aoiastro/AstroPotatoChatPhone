@@ -6,6 +6,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: '5.10'
+    SWIFT_ENABLE_CXX_INTEROP: YES
 packages:
   LocalLLMClient:
     url: https://github.com/tattn/LocalLLMClient.git
