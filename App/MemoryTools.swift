@@ -67,12 +67,13 @@ struct RememberUserFactTool: LLMTool {
         let normalizedKey = arguments.key.trimmingCharacters(in: .whitespacesAndNewlines)
         let normalizedValue = arguments.value.trimmingCharacters(in: .whitespacesAndNewlines)
         let count = await store.upsert(key: normalizedKey, value: normalizedValue)
-        return ToolOutput(data: [
+        let data: [String: any Sendable] = [
             "ok": true,
             "saved_key": normalizedKey,
             "saved_value": normalizedValue,
             "memory_count": count
-        ])
+        ]
+        return ToolOutput(data: data)
     }
 }
 
@@ -90,11 +91,12 @@ struct RecallUserFactTool: LLMTool {
     func call(arguments: Arguments) async throws -> ToolOutput {
         let normalizedKey = arguments.key.trimmingCharacters(in: .whitespacesAndNewlines)
         let value = await store.value(for: normalizedKey)
-        return ToolOutput(data: [
+        let data: [String: any Sendable] = [
             "key": normalizedKey,
             "value": value ?? "",
             "found": value != nil
-        ])
+        ]
+        return ToolOutput(data: data)
     }
 }
 
@@ -114,10 +116,11 @@ struct SearchUserMemoryTool: LLMTool {
 
     func call(arguments: Arguments) async throws -> ToolOutput {
         let results = await store.search(query: arguments.query, limit: arguments.limit ?? 5)
-        return ToolOutput(data: [
+        let data: [String: any Sendable] = [
             "query": arguments.query,
             "count": results.count,
             "results": results
-        ])
+        ]
+        return ToolOutput(data: data)
     }
 }
