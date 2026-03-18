@@ -7,6 +7,7 @@ LocalLLMClient (Swift + XcodeGen + SPM) を使って、iPhone 上でローカル
 - iOS: 17.0+
 - LLM: `Qwen/Qwen2.5-1.5B-Instruct-GGUF`
 - 量子化: `qwen2.5-1.5b-instruct-q4_k_m.gguf`（初回起動時に HF からダウンロード）
+- Tool Calling 記憶: `remember_user_fact` / `recall_user_fact` / `search_user_memory`
 
 ## セットアップ
 1. XcodeGen でプロジェクト生成
@@ -31,6 +32,15 @@ let model = LLMSession.DownloadModel.llama(
 )
 ```
 
+## Tool Calling 記憶機能
+このアプリは LocalLLMClient の Tool Calling を使って、会話中のユーザー情報を保存・参照します。
+
+- 保存: `remember_user_fact`
+- キー参照: `recall_user_fact`
+- あいまい検索: `search_user_memory`
+
+保存先は `UserDefaults`（キー: `apcp.memory.v1`）です。
+
 ## GitHub Actions (署名なしビルド)
 `.github/workflows/unsigned-build.yml` で、XcodeGen → 署名なしビルド → `.ipa` 生成まで実行します。
 AltStore 用にあとから署名する前提の `.ipa` です。
@@ -38,4 +48,3 @@ AltStore 用にあとから署名する前提の `.ipa` です。
 ## 注意
 - LocalLLMClient は experimental です。API 変更の可能性があります。
 - 大きなモデルを安定して動かすにはメモリ制限緩和のエンタイトルメントが必要な場合があります。
-
