@@ -50,7 +50,7 @@ actor MemoryStore {
 }
 
 @Tool("remember_user_fact")
-struct RememberUserFactTool: LLMTool {
+struct RememberUserFactTool {
     let description = "Save stable user facts like preferences, profile, habits, and constraints."
     let store: MemoryStore
 
@@ -78,7 +78,7 @@ struct RememberUserFactTool: LLMTool {
 }
 
 @Tool("recall_user_fact")
-struct RecallUserFactTool: LLMTool {
+struct RecallUserFactTool {
     let description = "Load one user fact by key."
     let store: MemoryStore
 
@@ -101,7 +101,7 @@ struct RecallUserFactTool: LLMTool {
 }
 
 @Tool("search_user_memory")
-struct SearchUserMemoryTool: LLMTool {
+struct SearchUserMemoryTool {
     let description = "Search saved user facts by text query."
     let store: MemoryStore
 
