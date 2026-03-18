@@ -1,0 +1,49 @@
+name: iOS Unsigned Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen
+
+      - name: Build (unsigned)
+        run: |
+          xcodebuild \
+            -project AstroPotatoChatPhone.xcodeproj \
+            -scheme AstroPotatoChatPhone \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_IDENTITY=""
+
+      - name: Package IPA (unsigned)
+        run: |
+          APP_PATH="build/Build/Products/Release-iphoneos/AstroPotatoChatPhone.app"
+          if [ ! -d "$APP_PATH" ]; then
+            echo "App not found at $APP_PATH"
+            exit 1
+          fi
+          rm -rf Payload
+          mkdir Payload
+          cp -R "$APP_PATH" Payload/
+          zip -r AstroPotatoChatPhone-unsigned.ipa Payload
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AstroPotatoChatPhone-unsigned
+          path: AstroPotatoChatPhone-unsigned.ipa
