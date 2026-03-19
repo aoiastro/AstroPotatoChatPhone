@@ -42,6 +42,9 @@ struct ContentView: View {
         .padding(.horizontal, 16)
         .padding(.top, 12)
         .padding(.bottom, 8)
+        .onDisappear {
+            viewModel.shutdownVoice()
+        }
     }
 
     private var header: some View {
@@ -51,6 +54,9 @@ struct ContentView: View {
             Text(viewModel.statusText)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
+            Text(viewModel.voiceStatusText)
+                .font(.caption)
+                .foregroundStyle(viewModel.voiceModeEnabled ? .green : .secondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -61,6 +67,19 @@ struct ContentView: View {
                 .textFieldStyle(.roundedBorder)
                 .lineLimit(1...4)
                 .disabled(!viewModel.isModelReady || viewModel.isGenerating)
+
+            Button(action: viewModel.toggleVoiceMode) {
+                Image(systemName: viewModel.voiceModeEnabled ? "waveform.circle.fill" : "waveform.circle")
+                    .font(.title3)
+            }
+            .buttonStyle(.bordered)
+
+            Button(action: viewModel.toggleListening) {
+                Image(systemName: viewModel.isListening ? "stop.circle.fill" : "mic.circle.fill")
+                    .font(.title3)
+            }
+            .buttonStyle(.bordered)
+            .disabled(!viewModel.voiceModeEnabled || viewModel.isGenerating)
 
             Button(action: viewModel.send) {
                 Text(viewModel.isGenerating ? "Thinking" : "Send")
