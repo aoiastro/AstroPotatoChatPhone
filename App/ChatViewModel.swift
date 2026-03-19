@@ -98,16 +98,16 @@ final class ChatViewModel: ObservableObject {
                 let searchTool = SearchUserMemoryTool(store: memoryStore)
                 session = LLMSession(model: model, tools: [rememberTool, recallTool, searchTool])
                 session.messages = [.system("""
-                You are a helpful assistant.
-                Use tools to maintain long-term memory about the user.
-                - Use remember_user_fact for stable preferences, profile details, habits, and constraints.
-                - Use recall_user_fact when a specific memory key is needed.
-                - Use search_user_memory when you need context but the key is unknown.
-                Keep keys short and descriptive (example: favorite_food, timezone, coding_style).
+                あなたは親切で正確なアシスタントです。ユーザーには自然な日本語で回答してください。
+                ユーザーに関する長期的な情報はツールを使って管理してください。
+                - 安定した好み、プロフィール、習慣、制約は remember_user_fact を使って保存する。
+                - キーが明確なときは recall_user_fact で参照する。
+                - キーが不明なときは search_user_memory で検索する。
+                キー名は短く分かりやすくする（例: favorite_food, timezone, coding_style）。
                 """)]
             } else {
                 session = LLMSession(model: model)
-                session.messages = [.system("You are a helpful assistant. Reply directly to the user in natural language.")]
+                session.messages = [.system("あなたは親切で正確なアシスタントです。ユーザーには自然な日本語で簡潔に回答してください。")]
             }
             self.session = session
 
