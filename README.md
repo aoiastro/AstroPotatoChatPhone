@@ -9,6 +9,7 @@ LocalLLMClient (Swift + XcodeGen + SPM) を使って、iPhone 上でローカル
 - 量子化: `qwen2.5-1.5b-instruct-q4_k_m.gguf`（初回起動時に HF からダウンロード）
 - Tool Calling 記憶: `remember_user_fact` / `recall_user_fact` / `search_user_memory`
 - 音声モード: 音声入力（Speech）+ 返答読み上げ（AVSpeechSynthesizer）
+- エンタイトルメント: increased memory limit / extended virtual addressing を有効化
 
 ## セットアップ
 1. XcodeGen でプロジェクト生成
@@ -55,4 +56,4 @@ AltStore 用にあとから署名する前提の `.ipa` です。
 
 ## 注意
 - LocalLLMClient は experimental です。API 変更の可能性があります。
-- 大きなモデルを安定して動かすにはメモリ制限緩和のエンタイトルメントが必要な場合があります。
+- 大きなモデルを安定して動かすため、`App/AstroPotatoChatPhone.entitlements` にメモリ制限緩和設定を追加しています。
