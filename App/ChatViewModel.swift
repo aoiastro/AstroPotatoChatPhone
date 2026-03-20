@@ -80,8 +80,8 @@ final class ChatViewModel: ObservableObject {
             statusText = "Downloading model from Hugging Face..."
 
             let model = LLMSession.DownloadModel.llama(
-                id: "unsloth/gemma-3n-E2B-it-GGUF",
-                model: "gemma-3n-E2B-it-Q4_K_M.gguf",
+                id: "unsloth/gemma-3-1b-it-GGUF",
+                model: "gemma-3-1b-it-Q4_K_M.gguf",
                 parameter: .init(
                     temperature: 0.7,
                     topK: 40,
